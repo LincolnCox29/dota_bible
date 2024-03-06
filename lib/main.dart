@@ -2,19 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:dota_bible/heroesAttribute/heroesAttribute.dart';
 
 
-ElevatedButton mainMenuButton(context, final dynamic page, final String text){
-  return ElevatedButton(
-    onPressed: (){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => page));
-    },
-    style: ElevatedButton.styleFrom(
-      minimumSize: const Size(1000, 30),
-      elevation: double.infinity,
-    ),
-    child: Text(
-      text,
-      style: const TextStyle( color: Color.fromARGB(225,15,76,117))
-    ),
+Stack mainMenuButton(final String text, final String img,){
+  return Stack(
+    children : [
+      Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 3,
+            color: const Color.fromARGB(225,15,76,117)
+          ),
+          boxShadow:  [
+            BoxShadow(
+              color: const Color.fromARGB(225,15,76,117).withOpacity(.1),
+              offset: const Offset(8, 8),
+              blurRadius: 5,
+              spreadRadius: 10
+            ),
+          ],
+          borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(
+            image: AssetImage(img),
+            fit:  BoxFit.fill
+          )
+        ),
+        width: 350,
+        height: 100,
+      ),
+      Padding(
+        padding : const EdgeInsets.symmetric(vertical: 30, horizontal: 130),
+        child : Text(
+          text,
+          style: const TextStyle(
+            fontWeight:FontWeight.w700,
+            fontSize: 30
+          ),
+        )
+      )
+    ]
   );
 }
 
@@ -27,10 +51,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         // Тема для основного заднего фона
         scaffoldBackgroundColor: const Color.fromARGB(225,27,38,44),
-
         // Тема для текста для основного текста
         textTheme: const TextTheme(
           bodyMedium: TextStyle(
@@ -44,7 +66,6 @@ class MyApp extends StatelessWidget {
             color: Color.fromARGB(225,15,76,117)
           )
         ),
-
         // Тема для ап бара
         appBarTheme: const AppBarTheme(
           backgroundColor: Color.fromARGB(225,15,76,117),
@@ -84,17 +105,38 @@ class _MyHomePageState extends State<MyHomePage> {
           ]
         )
       ),
-      body: Center(child: ButtonBar(
-        buttonPadding: const EdgeInsetsDirectional.symmetric(horizontal: 100, vertical: 10),
-        alignment: MainAxisAlignment.center,
-        buttonMinWidth: 100,
-        children: [
-          mainMenuButton(context, heroes_strength(), 'Heroes'),
-          mainMenuButton(context, heroes_strength(), 'Heroes'),
-          mainMenuButton(context, heroes_strength(), 'Heroes'),
-          mainMenuButton(context, heroes_strength(), 'Heroes'),
-        ],
+      body: Center(
+        child : Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => heroes_strength()));
+              },
+              child : mainMenuButton('Heroes', 'assets/img/menu/heroes_button.png'),
+            ),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => heroes_strength()));
+              },
+              child : mainMenuButton('Items', 'assets/img/menu/items_button.png'),
+            ),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => heroes_strength()));
+              },
+              child : mainMenuButton('Items', 'assets/img/menu/items_button.png'),
+            ),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => heroes_strength()));
+              },
+              child : mainMenuButton('Items', 'assets/img/menu/items_button.png'),
+            ),
+          ],
+        )
       )
-    ));
+    );
   }
 }
+//'assets/img/menu/items_button.png'

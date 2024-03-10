@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dota_bible/heroesAttribute/heroesAttribute.dart';
-
+import 'package:dota_bible/items/items.dart';
 
 Stack mainMenuButton(final String text, final String img,){
   return Stack(
@@ -29,7 +29,7 @@ Stack mainMenuButton(final String text, final String img,){
         height: 100,
       ),
       Padding(
-        padding : const EdgeInsets.symmetric(vertical: 30, horizontal: 130),
+        padding : const EdgeInsets.symmetric(vertical: 30, horizontal: 50),
         child : Text(
           text,
           style: const TextStyle(
@@ -117,21 +117,15 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => heroes_strength()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => base()));
               },
-              child : mainMenuButton('Items', 'assets/img/menu/items_button.png'),
+              child : mainMenuButton('Base Items', 'assets/img/menu/items_button.png'),
             ),
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => heroes_strength()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => difficult()));
               },
-              child : mainMenuButton('Items', 'assets/img/menu/items_button.png'),
-            ),
-            GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => heroes_strength()));
-              },
-              child : mainMenuButton('Items', 'assets/img/menu/items_button.png'),
+              child : mainMenuButton('Difficult Items', 'assets/img/menu/items_button.png'),
             ),
           ],
         )
@@ -139,4 +133,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-//'assets/img/menu/items_button.png'

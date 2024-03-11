@@ -34,7 +34,13 @@ Stack mainMenuButton(final String text, final String img,){
           text,
           style: const TextStyle(
             fontWeight:FontWeight.w700,
-            fontSize: 30
+            fontSize: 30,
+            shadows: [
+              BoxShadow(
+                color: Colors.black,
+                offset: Offset(3, 3)
+              )
+            ]
           ),
         )
       )
@@ -119,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => base()));
               },
-              child : mainMenuButton('Base Items', 'assets/img/menu/items_button.png'),
+              child : mainMenuButton('Base Items', 'assets/img/menu/base_items.png'),
             ),
             GestureDetector(
               onTap: (){

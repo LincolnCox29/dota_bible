@@ -23,8 +23,6 @@ dev_dependencies:
     sdk: flutter
   json_serializable: ^6.7.1
   build_runner: ^2.4.8
-
-
   flutter_lints: ^2.0.0
 
 
@@ -35,7 +33,6 @@ flutter:
     - assets/img/
     - assets/img/heroes/
     - assets/img/attribute/
-    - assets/img/skills/
     - assets/img/icons/
     - assets/img/menu/
 

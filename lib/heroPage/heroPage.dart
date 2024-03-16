@@ -110,7 +110,7 @@ class heroPage extends StatelessWidget {
                 ],
               ),
             ),
-            labeleContainer(context, 'Spals'),
+            labeleContainer(context, 'Spells'),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

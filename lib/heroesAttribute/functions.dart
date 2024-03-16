@@ -47,7 +47,7 @@ PreferredSizeWidget heroAppBar(context, String attribute){
         icon: Image.asset('assets/img/attribute/Strength_attribute_symbol.png'),
         onPressed: () {
           if(attribute != 'strength'){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => heroes_strength()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_strength()));
           }
         }
       ),
@@ -55,7 +55,7 @@ PreferredSizeWidget heroAppBar(context, String attribute){
         icon: Image.asset('assets/img/attribute/Agility_attribute_symbol.png'),
         onPressed: () {
           if(attribute != 'agility'){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => heroes_agility()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_agility()));
           }
         }
       ),
@@ -63,7 +63,7 @@ PreferredSizeWidget heroAppBar(context, String attribute){
         icon: Image.asset('assets/img/attribute/Intelligence_attribute_symbol.png'),
         onPressed: () {
           if(attribute != 'intelligence'){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => heroes_intelligence()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_intelligence()));
           }
         }
       ),
@@ -71,7 +71,7 @@ PreferredSizeWidget heroAppBar(context, String attribute){
         icon: Image.asset('assets/img/attribute/Universal_attribute_symbol.png'),
         onPressed: () {
           if(attribute != 'universal'){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => heroes_universal()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_universal()));
           }
         }
       ),

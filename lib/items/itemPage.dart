@@ -70,7 +70,7 @@ class item_page extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(right: 10, top: 20),
+                    padding: const EdgeInsets.only(right: 10, top: 20),
                     child : Container(
                       width: 170,
                       child: Container(
@@ -116,7 +116,7 @@ class item_page extends StatelessWidget{
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 10, top: 20),
+                    padding: const EdgeInsets.only(left: 10, top: 20),
                     child : Container(
                       width: 170,
                       child: Container(

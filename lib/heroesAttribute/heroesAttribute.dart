@@ -9,34 +9,77 @@ class heroes_strength extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: heroAppBar(context, 'strength'),
-      body: heroListView(heroesStrength)
+      body: GestureDetector( 
+        onPanUpdate: (details) {
+          if (details.delta.dx < 0) {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_agility()));
+          }
+          if (details.delta.dx > 0) {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_universal()));
+          }
+        },
+        child : heroListView(heroesStrength),
+      )
     );
   }
 }
+
 class heroes_agility extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: heroAppBar(context, 'agility'),
-      body: heroListView(heroesAgility)
+      body: GestureDetector( 
+        onPanUpdate: (details) {
+          if (details.delta.dx < 0) {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_intelligence()));
+          }
+          if (details.delta.dx > 0) {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_strength()));
+          }
+        },
+        child : heroListView(heroesAgility),
+      )
     );
   }
 }
+
 class heroes_intelligence extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: heroAppBar(context, 'intelligence'),
-      body: heroListView(heroesIntelligence)
+      body: GestureDetector( 
+        onPanUpdate: (details) {
+          if (details.delta.dx < 0) {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_universal()));
+          }
+          if (details.delta.dx > 0) {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_agility()));
+          }
+        },
+        child : heroListView(heroesIntelligence),
+      )
     );
   }
 }
+
 class heroes_universal extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: heroAppBar(context, 'universal'),
-      body: heroListView(heroesUniversal)
+      body: GestureDetector( 
+        onPanUpdate: (details) {
+          if (details.delta.dx < 0) {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_strength()));
+          }
+          if (details.delta.dx > 0) {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_intelligence()));
+          }
+        },
+        child : heroListView(heroesUniversal),
+      )
     );
   }
 }

@@ -151,7 +151,18 @@ class heroPage extends StatelessWidget {
                                     Stack(
                                       children : <Widget>[
                                         Image.network(thisSpall.icon),
-                                        Text(thisSpall.name)
+                                        Text(
+                                          thisSpall.name,
+                                          style: const TextStyle(
+                                            shadows: [
+                                              Shadow(
+                                                color: Colors.black,
+                                                offset: Offset(1, 1),
+                                                blurRadius: 2
+                                              )
+                                            ]
+                                          ),
+                                        )
                                       ]
                                     ),
                                     Column(

@@ -139,62 +139,60 @@ class heroPage extends StatelessWidget {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return Expanded(
-                            child: AlertDialog( 
-                              backgroundColor: const Color.fromARGB(225,27,38,44),
-                              content: SizedBox(
-                                width: 300,
-                                height: 600,
-                                child : ListView(
-                                  shrinkWrap: true,
-                                  children: <Widget>[
-                                    Stack(
-                                      children : <Widget>[
-                                        Image.network(thisSpall.icon),
-                                        Text(
-                                          thisSpall.name,
-                                          style: const TextStyle(
-                                            shadows: [
-                                              Shadow(
-                                                color: Colors.black,
-                                                offset: Offset(1, 1),
-                                                blurRadius: 2
-                                              )
-                                            ]
-                                          ),
-                                        )
-                                      ]
-                                    ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        labeleContainer(context, 'Description'),
-                                        Text(
-                                          thisSpall.description
+                          return AlertDialog( 
+                            backgroundColor: const Color.fromARGB(225,27,38,44),
+                            content: SizedBox(
+                              width: 300,
+                              height: 600,
+                              child : ListView(
+                                shrinkWrap: true,
+                                children: <Widget>[
+                                  Stack(
+                                    children : <Widget>[
+                                      Image.network(thisSpall.icon),
+                                      Text(
+                                        thisSpall.name,
+                                        style: const TextStyle(
+                                          shadows: [
+                                            Shadow(
+                                              color: Colors.black,
+                                              offset: Offset(1, 1),
+                                              blurRadius: 2
+                                            )
+                                          ]
                                         ),
-                                        labeleContainer(context, 'Stats'),
-                                        Padding(
-                                          padding: const EdgeInsets.only(bottom: 5),
-                                          child: Text(
-                                            'Damage Type : ${thisSpall.damageType}'
-                                          )
-                                        ),
-                                        ListView.builder(
-                                          shrinkWrap: true,
-                                          physics: const NeverScrollableScrollPhysics(),
-                                          itemCount: thisSpall.fields.length,
-                                          itemBuilder: (context, index){
-                                            String fild = thisSpall.fields[index];
-                                            return Padding(
-                                              padding: const EdgeInsets.only(bottom: 5),
-                                              child : Text(fild)
-                                            );
-                                          }
+                                      )
+                                    ]
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      labeleContainer(context, 'Description'),
+                                      Text(
+                                        thisSpall.description
+                                      ),
+                                      labeleContainer(context, 'Stats'),
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 5),
+                                        child: Text(
+                                          'Damage Type : ${thisSpall.damageType}'
                                         )
-                                      ],
-                                    )
-                                  ]
-                                )
+                                      ),
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemCount: thisSpall.fields.length,
+                                        itemBuilder: (context, index){
+                                          String fild = thisSpall.fields[index];
+                                          return Padding(
+                                            padding: const EdgeInsets.only(bottom: 5),
+                                            child : Text(fild)
+                                          );
+                                        }
+                                      )
+                                    ],
+                                  )
+                                ]
                               )
                             )
                           );

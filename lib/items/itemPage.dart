@@ -1,5 +1,8 @@
 import 'package:dota_bible/Objects/items.dart';
+import 'package:dota_bible/items/items.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class item_page extends StatelessWidget{
   @override
@@ -23,24 +26,27 @@ class item_page extends StatelessWidget{
       body: ListView(
         children: [Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color.fromARGB(225,15,76,117).withOpacity(.1),
-                      offset: const Offset(8, 8),
-                      blurRadius: 10,
-                      spreadRadius: 10
-                    )
-                  ]
+            Stack(
+              children: [
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color.fromARGB(225,15,76,117).withOpacity(.1),
+                        offset: const Offset(8, 8),
+                        blurRadius: 10,
+                        spreadRadius: 10
+                      )
+                    ]
+                  )
                 ),
-                child : Image.network(
-                  item.icon,
-                  scale: 0.6
-                ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Image.network(
+                    item.icon,
+                  )
+                )
+              ]
             ),
             Padding( // Item Cost
               padding: const EdgeInsets.only(top: 20),
@@ -67,12 +73,13 @@ class item_page extends StatelessWidget{
             ),
             Center(
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 10, top: 20),
-                    child : Container(
-                      width: 170,
+                    child : SizedBox(
+                      width: getScreenWidth(context) * 0.43,
                       child: Container(
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(225,27,38,44),
@@ -117,8 +124,8 @@ class item_page extends StatelessWidget{
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 10, top: 20),
-                    child : Container(
-                      width: 170,
+                    child : SizedBox(
+                      width: getScreenWidth(context) * 0.43,
                       child: Container(
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(225,27,38,44),

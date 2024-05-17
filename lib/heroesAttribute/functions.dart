@@ -17,7 +17,7 @@ Widget heroListView(final Map<String,List> attribute){
           name,
           style: Theme.of(context).textTheme.bodyLarge
         ),
-        leading: Image.asset(link),
+        leading: Image.asset(link, width: getScreenWidth(context) * 0.3 , height: getScreenHeight(context) * 0.3),
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => heroPage(),
           settings: RouteSettings(arguments: args)));

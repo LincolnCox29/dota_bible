@@ -1,3 +1,4 @@
+import 'package:dota_bible/items/items.dart';
 import 'package:flutter/material.dart';
 import '../Objects/heroes.dart';
 import 'package:dota_bible/heroPage/heroPage.dart';

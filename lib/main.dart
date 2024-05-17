@@ -2,52 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:dota_bible/heroesAttribute/heroesAttribute.dart';
 import 'package:dota_bible/items/items.dart';
 
-Stack mainMenuButton(final String text, final String img,){
-  return Stack(
-    children : [
-      Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 3,
-            color: const Color.fromARGB(225,15,76,117)
-          ),
-          boxShadow:  [
-            BoxShadow(
-              color: const Color.fromARGB(225,15,76,117).withOpacity(.1),
-              offset: const Offset(8, 8),
-              blurRadius: 5,
-              spreadRadius: 10
-            ),
-          ],
-          borderRadius: BorderRadius.circular(10),
-          image: DecorationImage(
-            image: AssetImage(img),
-            fit:  BoxFit.fill
-          )
-        ),
-        width: 350,
-        height: 100,
-      ),
-      Padding(
-        padding : const EdgeInsets.symmetric(vertical: 30, horizontal: 50),
-        child : Text(
-          text,
-          style: const TextStyle(
-            fontWeight:FontWeight.w700,
-            fontSize: 30,
-            shadows: [
-              BoxShadow(
-                color: Colors.black,
-                offset: Offset(3, 3)
-              )
-            ]
-          ),
-        )
-      )
-    ]
-  );
-}
-
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -57,9 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // Тема для основного заднего фона
         scaffoldBackgroundColor: const Color.fromARGB(225,27,38,44),
-        // Тема для текста для основного текста
         textTheme: const TextTheme(
           bodyMedium: TextStyle(
             color: Colors.white
@@ -72,7 +24,6 @@ class MyApp extends StatelessWidget {
             color: Color.fromARGB(225,15,76,117)
           )
         ),
-        // Тема для ап бара
         appBarTheme: const AppBarTheme(
           backgroundColor: Color.fromARGB(225,15,76,117),
         )
@@ -119,19 +70,19 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => heroes_strength()));
               },
-              child : mainMenuButton('Heroes', 'assets/img/menu/heroes_button.png'),
+              child : mainMenuButton('Heroes', 'assets/img/menu/heroes_button.png', context),
             ),
             GestureDetector(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => base()));
               },
-              child : mainMenuButton('Base Items', 'assets/img/menu/base_items.png'),
+              child : mainMenuButton('Base Items', 'assets/img/menu/base_items.png', context),
             ),
             GestureDetector(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => difficult()));
               },
-              child : mainMenuButton('Difficult Items', 'assets/img/menu/items_button.png'),
+              child : mainMenuButton('Difficult Items', 'assets/img/menu/items_button.png', context),
             ),
           ],
         )

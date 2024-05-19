@@ -12,7 +12,12 @@ Widget itemListView(final List<Item> items, type){
       Item args = item;
       return ListTile(
         contentPadding: const EdgeInsets.all(5),
-        leading: Image.network(link),
+        leading: Image.network(
+          link,
+          fit: BoxFit.contain,
+          width: getScreenWidth(context) * 0.2,
+          height: getScreenHeight(context) * 0.5,
+        ),
         onTap: () {
           if(type == 'base'){
             Navigator.push(context, MaterialPageRoute(builder: (context) => (item_page()),

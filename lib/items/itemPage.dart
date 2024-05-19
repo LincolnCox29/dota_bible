@@ -44,6 +44,9 @@ class item_page extends StatelessWidget{
                   padding: const EdgeInsets.only(top: 20),
                   child: Image.network(
                     item.icon,
+                    fit: BoxFit.contain,
+                    height: getScreenHeight(context) * 0.11,
+                    width: getScreenWidth(context) * 0.35,
                   )
                 )
               ]

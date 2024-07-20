@@ -1,15 +1,15 @@
 part of 'items.dart';
 
-Widget itemListView(final List<Item> items, type){
+Widget itemListView(final List<dynamic> items, type){
   return GridView.builder(
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 4,
     ),
     itemCount: items.length,
     itemBuilder: (context, index){
-    Item item = items[index];
-      String link = item.icon;
-      Item args = item;
+    dynamic item = items[index];
+      String link = 'https://cdn.cloudflare.steamstatic.com/${item['img']}';
+      dynamic args = item;
       return ListTile(
         contentPadding: const EdgeInsets.all(5),
         leading: Image.network(
@@ -20,11 +20,11 @@ Widget itemListView(final List<Item> items, type){
         ),
         onTap: () {
           if(type == 'base'){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => (item_page()),
+            Navigator.push(context, MaterialPageRoute(builder: (context) => (ItemPage()),
             settings: RouteSettings(arguments: args)));
           }
           else if(type == 'difficult'){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => (item_page()),
+            Navigator.push(context, MaterialPageRoute(builder: (context) => (ItemPage()),
             settings: RouteSettings(arguments: args)));
           }
         },

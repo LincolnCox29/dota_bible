@@ -1,8 +1,9 @@
+import 'package:dota_bible/dataProvider.dart';
+import 'package:dota_bible/homePage.dart';
 import 'package:dota_bible/items/items.dart';
 import 'package:flutter/material.dart';
-import '../Objects/heroes.dart';
+import 'package:provider/provider.dart';
 import 'package:dota_bible/heroPage/heroPage.dart';
-import 'package:dota_bible/main.dart';
 part 'functions.dart';
 
 class heroes_strength extends StatelessWidget{
@@ -19,7 +20,7 @@ class heroes_strength extends StatelessWidget{
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_universal()));
           }
         },
-        child : heroListView(heroesStrength),
+        child : heroListView(Provider.of<DataProvider>(context).strengthHeroes),
       )
     );
   }
@@ -39,7 +40,7 @@ class heroes_agility extends StatelessWidget{
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_strength()));
           }
         },
-        child : heroListView(heroesAgility),
+        child : heroListView(Provider.of<DataProvider>(context).agilityHeroes),
       )
     );
   }
@@ -59,7 +60,7 @@ class heroes_intelligence extends StatelessWidget{
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_agility()));
           }
         },
-        child : heroListView(heroesIntelligence),
+        child : heroListView(Provider.of<DataProvider>(context).intelligenceHeroes),
       )
     );
   }
@@ -79,7 +80,7 @@ class heroes_universal extends StatelessWidget{
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_intelligence()));
           }
         },
-        child : heroListView(heroesUniversal),
+        child : heroListView(Provider.of<DataProvider>(context).universalHeroes),
       )
     );
   }

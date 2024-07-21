@@ -1,6 +1,6 @@
 part of 'items.dart';
 
-Widget itemListView(final List<dynamic> items, type){
+Widget itemListView(final List<dynamic> items){
   return GridView.builder(
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 4,
@@ -19,14 +19,8 @@ Widget itemListView(final List<dynamic> items, type){
           height: getScreenHeight(context) * 0.5,
         ),
         onTap: () {
-          if(type == 'base'){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => (ItemPage()),
-            settings: RouteSettings(arguments: args)));
-          }
-          else if(type == 'difficult'){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => (ItemPage()),
-            settings: RouteSettings(arguments: args)));
-          }
+          Navigator.push(context, MaterialPageRoute(builder: (context) => (ItemPage()),
+          settings: RouteSettings(arguments: args)));
         },
       );
     }

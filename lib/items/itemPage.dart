@@ -108,7 +108,10 @@ class ItemPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             child: item['attrib'] == null || item['attrib'].isEmpty
-                                ? Text('No stats available', style: const TextStyle(fontSize: 12))
+                                ? const Text(
+                                    'No stats available', 
+                                    style: TextStyle(fontSize: 12)
+                                  )
                                 : ListView.builder(
                                     shrinkWrap: true,
                                     physics: const NeverScrollableScrollPhysics(),
@@ -159,7 +162,10 @@ class ItemPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             child: item['abilities'] == null || item['abilities'].isEmpty
-                              ? Text('No abilities available', style: const TextStyle(fontSize: 12))
+                              ? const Text(
+                                  'No abilities available', 
+                                  style: TextStyle(fontSize: 12)
+                                )
                               : ListView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),

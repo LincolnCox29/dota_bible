@@ -1,31 +1,37 @@
-import 'package:dota_bible/dataProvider.dart';
-import 'package:dota_bible/items/itemPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:dota_bible/dataProvider.dart';
+import 'package:dota_bible/items/itemPage.dart';
 part 'functions.dart';
 
-class base extends StatelessWidget{
+abstract class Items extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: itemAppBar(context, 'Base'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
-        child : itemListView(Provider.of<DataProvider>(context).simpleItems, 'base')
-      )
+        child: buildChild(context),
+      ),
     );
+  }
+
+  Widget buildChild(BuildContext context);
+}
+
+class SimpleItems extends Items {
+
+  @override
+  Widget buildChild(BuildContext context) {
+    return itemListView(Provider.of<DataProvider>(context).simpleItems);
   }
 }
 
-class difficult extends StatelessWidget{
+class ComplexItems extends Items {
+  
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: itemAppBar(context, 'Difficult'),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child : itemListView(Provider.of<DataProvider>(context).complexItems, 'difficult')
-      )
-    );
+  Widget buildChild(BuildContext context) {
+    return itemListView(Provider.of<DataProvider>(context).complexItems);
   }
 }

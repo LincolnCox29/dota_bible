@@ -6,82 +6,93 @@ import 'package:provider/provider.dart';
 import 'package:dota_bible/heroPage/heroPage.dart';
 part 'functions.dart';
 
-class heroes_strength extends StatelessWidget{
+abstract class HeroesBase extends StatelessWidget {
+  final Type heroType;
+  final List<dynamic> Function(DataProvider) getHeroes;
+  final Widget Function(BuildContext, String) getNextHeroType;
+
+  const HeroesBase({required this.heroType, required this.getHeroes, required this.getNextHeroType});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: heroAppBar(context, 'strength'),
-      body: GestureDetector( 
+      appBar: heroAppBar(context, heroType),
+      body: GestureDetector(
         onPanUpdate: (details) {
           if (details.delta.dx < 0) {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_agility()));
-          }
-          if (details.delta.dx > 0) {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_universal()));
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => getNextHeroType(context, 'next'),
+              ),
+            );
+          } else if (details.delta.dx > 0) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => getNextHeroType(context, 'prev'),
+              ),
+            );
           }
         },
-        child : heroListView(Provider.of<DataProvider>(context).strengthHeroes),
-      )
+        child: heroListView(getHeroes(Provider.of<DataProvider>(context))),
+      ),
     );
   }
 }
 
-class heroes_agility extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: heroAppBar(context, 'agility'),
-      body: GestureDetector( 
-        onPanUpdate: (details) {
-          if (details.delta.dx < 0) {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_intelligence()));
-          }
-          if (details.delta.dx > 0) {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_strength()));
-          }
-        },
-        child : heroListView(Provider.of<DataProvider>(context).agilityHeroes),
-      )
-    );
-  }
+class HeroesStrength extends HeroesBase {
+  HeroesStrength() : super(
+    heroType: HeroesStrength,
+    getHeroes: (provider) => provider.strengthHeroes,
+    getNextHeroType: (context, direction) {
+      if (direction == 'next') {
+        return HeroesAgility();
+      } else {
+        return HeroesUniversal();
+      }
+    },
+  );
 }
 
-class heroes_intelligence extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: heroAppBar(context, 'intelligence'),
-      body: GestureDetector( 
-        onPanUpdate: (details) {
-          if (details.delta.dx < 0) {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_universal()));
-          }
-          if (details.delta.dx > 0) {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_agility()));
-          }
-        },
-        child : heroListView(Provider.of<DataProvider>(context).intelligenceHeroes),
-      )
-    );
-  }
+class HeroesAgility extends HeroesBase {
+  HeroesAgility() : super(
+    heroType: HeroesAgility,
+    getHeroes: (provider) => provider.agilityHeroes,
+    getNextHeroType: (context, direction) {
+      if (direction == 'next') {
+        return HeroesIntelligence();
+      } else {
+        return HeroesStrength();
+      }
+    },
+  );
 }
 
-class heroes_universal extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: heroAppBar(context, 'universal'),
-      body: GestureDetector( 
-        onPanUpdate: (details) {
-          if (details.delta.dx < 0) {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_strength()));
-          }
-          if (details.delta.dx > 0) {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_intelligence()));
-          }
-        },
-        child : heroListView(Provider.of<DataProvider>(context).universalHeroes),
-      )
-    );
-  }
+class HeroesIntelligence extends HeroesBase {
+  HeroesIntelligence() : super(
+    heroType: HeroesIntelligence,
+    getHeroes: (provider) => provider.intelligenceHeroes,
+    getNextHeroType: (context, direction) {
+      if (direction == 'next') {
+        return HeroesUniversal();
+      } else {
+        return HeroesAgility();
+      }
+    },
+  );
+}
+
+class HeroesUniversal extends HeroesBase {
+  HeroesUniversal() : super(
+    heroType: HeroesUniversal,
+    getHeroes: (provider) => provider.universalHeroes,
+    getNextHeroType: (context, direction) {
+      if (direction == 'next') {
+        return HeroesStrength();
+      } else {
+        return HeroesIntelligence();
+      }
+    },
+  );
 }

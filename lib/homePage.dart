@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => heroes_strength()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => HeroesStrength()));
               },
               child : mainMenuButton('Heroes', 'assets/img/menu/heroes_button.png', context),
             ),

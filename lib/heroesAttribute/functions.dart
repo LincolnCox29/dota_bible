@@ -24,11 +24,12 @@ Widget heroListView(final List<dynamic> heroes){
   );
 }
 
-PreferredSizeWidget heroAppBar(context, String attribute){
+PreferredSizeWidget heroAppBar(context, Type attribute){
+
   return AppBar(
     leading: BackButton(
       onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Main',)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Main')));
       },
     ),
     backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
@@ -40,32 +41,32 @@ PreferredSizeWidget heroAppBar(context, String attribute){
       IconButton(
         icon: Image.asset('assets/img/attribute/Strength_attribute_symbol.png'),
         onPressed: () {
-          if(attribute != 'strength'){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_strength()));
+          if(attribute != HeroesStrength){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HeroesStrength()));
           }
         }
       ),
       IconButton(
         icon: Image.asset('assets/img/attribute/Agility_attribute_symbol.png'),
         onPressed: () {
-          if(attribute != 'agility'){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_agility()));
+          if(attribute != HeroesAgility){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HeroesAgility()));
           }
         }
       ),
       IconButton(
         icon: Image.asset('assets/img/attribute/Intelligence_attribute_symbol.png'),
         onPressed: () {
-          if(attribute != 'intelligence'){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_intelligence()));
+          if(attribute != HeroesIntelligence){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HeroesIntelligence()));
           }
         }
       ),
       IconButton(
         icon: Image.asset('assets/img/attribute/Universal_attribute_symbol.png'),
         onPressed: () {
-          if(attribute != 'universal'){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => heroes_universal()));
+          if(attribute != HeroesUniversal){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HeroesUniversal()));
           }
         }
       ),

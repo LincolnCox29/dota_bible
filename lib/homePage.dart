@@ -54,13 +54,13 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => SimpleItems()));
               },
-              child : mainMenuButton('Base Items', 'assets/img/menu/base_items.png', context),
+              child : mainMenuButton('Simple Items', 'assets/img/menu/base_items.png', context),
             ),
             GestureDetector(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ComplexItems()));
               },
-              child : mainMenuButton('Difficult Items', 'assets/img/menu/items_button.png', context),
+              child : mainMenuButton('Complex Items', 'assets/img/menu/items_button.png', context),
             ),
           ],
         )

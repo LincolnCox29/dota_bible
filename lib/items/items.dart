@@ -9,29 +9,36 @@ abstract class Items extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: itemAppBar(context, 'Base'),
+      appBar: itemAppBar(context, type()),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: buildChild(context),
+        child: child(context),
       ),
     );
   }
 
-  Widget buildChild(BuildContext context);
+  Widget child(BuildContext context);
+  String type();
 }
 
 class SimpleItems extends Items {
 
   @override
-  Widget buildChild(BuildContext context) {
+  Widget child(BuildContext context) {
     return itemListView(Provider.of<DataProvider>(context).simpleItems);
   }
+
+  @override
+  String type() => 'Simple';
 }
 
 class ComplexItems extends Items {
   
   @override
-  Widget buildChild(BuildContext context) {
+  Widget child(BuildContext context) {
     return itemListView(Provider.of<DataProvider>(context).complexItems);
   }
+
+  @override
+  String type() => 'Complex';
 }

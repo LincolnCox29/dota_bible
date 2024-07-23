@@ -27,7 +27,7 @@ Widget itemListView(final List<dynamic> items){
   );
 }
 
-AppBar itemAppBar(context, type){
+AppBar itemAppBar(context, String type){
   return AppBar(
     backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
     title: Row(
@@ -35,7 +35,7 @@ AppBar itemAppBar(context, type){
         Padding(
           padding: const EdgeInsets.only(right: 10),
           child : Text(
-            type + ' items',
+            '$type items',
             style: Theme.of(context).textTheme.bodyLarge
           ),
         ),

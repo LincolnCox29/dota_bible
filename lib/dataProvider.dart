@@ -12,10 +12,13 @@ class DataProvider with ChangeNotifier {
   List<dynamic> get simpleItems => _simpleItems;
   List<dynamic> get complexItems => _complexItems;
 
-  List<dynamic> get agilityHeroes => _heroes.values.where((hero) => hero['primary_attr'] == 'agi').toList();
-  List<dynamic> get intelligenceHeroes => _heroes.values.where((hero) => hero['primary_attr'] == 'int').toList();
-  List<dynamic> get strengthHeroes => _heroes.values.where((hero) => hero['primary_attr'] == 'str').toList();
-  List<dynamic> get universalHeroes => _heroes.values.where((hero) => hero['primary_attr'] == 'all').toList();
+  List<dynamic> _getHeroesListByAttribute(String attributeTag)
+    => _heroes.values.where((hero) => hero['primary_attr'] == attributeTag).toList();
+
+  List<dynamic> get agilityHeroes =>  _getHeroesListByAttribute('agi');
+  List<dynamic> get intelligenceHeroes => _getHeroesListByAttribute('int');
+  List<dynamic> get strengthHeroes => _getHeroesListByAttribute('str');
+  List<dynamic> get universalHeroes => _getHeroesListByAttribute('all');
 
   Future<void> fetchHeroes() async {
     final response = await http.get(Uri.parse('https://api.opendota.com/api/constants/heroes'));

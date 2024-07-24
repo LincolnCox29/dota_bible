@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Text(
-              '7.35c',
+              Provider.of<DataProvider>(context).gameVersion,
               style: Theme.of(context).textTheme.bodyLarge
             )
           ]

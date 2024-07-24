@@ -5,12 +5,17 @@ import 'dart:convert';
 class DataProvider with ChangeNotifier {
   Map<String, dynamic> _heroes = {};
   Map<String, dynamic> _items = {};
+  Map<String, dynamic> _abilities = {};
   List<dynamic> _simpleItems = [];
   List<dynamic> _complexItems = [];
+  
+  String _gameVersion = '';
 
   Map<String, dynamic> get heroes => _heroes;
+  Map<String, dynamic> get abilities => _abilities;
   List<dynamic> get simpleItems => _simpleItems;
   List<dynamic> get complexItems => _complexItems;
+  String get gameVersion => _gameVersion;
 
   List<dynamic> _getHeroesListByAttribute(String attributeTag)
     => _heroes.values.where((hero) => hero['primary_attr'] == attributeTag).toList();
@@ -20,7 +25,7 @@ class DataProvider with ChangeNotifier {
   List<dynamic> get strengthHeroes => _getHeroesListByAttribute('str');
   List<dynamic> get universalHeroes => _getHeroesListByAttribute('all');
 
-  Future<void> fetchHeroes() async {
+  Future<void> _fetchHeroes() async {
     final response = await http.get(Uri.parse('https://api.opendota.com/api/constants/heroes'));
     if (response.statusCode == 200) {
       _heroes = json.decode(response.body);
@@ -30,7 +35,7 @@ class DataProvider with ChangeNotifier {
     }
   }
 
-  Future<void> fetchItems() async {
+  Future<void> _fetchItems() async {
     final response = await http.get(Uri.parse('https://api.opendota.com/api/constants/items'));
     if (response.statusCode == 200) {
       _items = json.decode(response.body);
@@ -44,8 +49,29 @@ class DataProvider with ChangeNotifier {
     }
   }
 
+  Future<void> _fetchGameVersion() async {
+    final response = await http.get(Uri.parse('https://api.opendota.com/api/constants/patch'));
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      _gameVersion = data.last['name'];
+      notifyListeners();
+    } else {
+      throw Exception('Failed to load gameVersion');
+    }
+  }
+
+  Future<void> _fetchAbilities(int heroID) async {
+    final abilitiesResponse = await http.get(Uri.parse('https://api.opendota.com/api/constants/abilities'));
+    if (abilitiesResponse.statusCode == 200) {
+      _abilities = json.decode(abilitiesResponse.body);
+    } else {
+      throw Exception('Failed to load abilities');
+    }
+  }
+
   Future<void> fetchData() async {
-    await fetchHeroes();
-    await fetchItems();
+    await _fetchHeroes();
+    await _fetchItems();
+    await _fetchGameVersion();
   }
 }

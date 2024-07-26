@@ -9,32 +9,46 @@ class DataProvider with ChangeNotifier {
   Map<String, dynamic> _heroes = {};
   Map<String, dynamic> _items = {};
   Map<String, dynamic> _abilities = {};
+  Map<String, dynamic> _heroAbilities = {};
   List<dynamic> _simpleItems = [];
   List<dynamic> _complexItems = [];
   String _gameVersion = '';
 
   Map<String, dynamic> get heroes => _heroes;
   Map<String, dynamic> get abilities => _abilities;
+  Map<String, dynamic> get heroAbilities => _heroAbilities;
   List<dynamic> get simpleItems => _simpleItems;
   List<dynamic> get complexItems => _complexItems;
   String get gameVersion => _gameVersion;
 
   List<dynamic> _getHeroesListByAttribute(String attributeTag)
     => _heroes.values.where((hero) => hero['primary_attr'] == attributeTag).toList();
-
+  
   List<dynamic> get agilityHeroes =>  _getHeroesListByAttribute('agi');
   List<dynamic> get intelligenceHeroes => _getHeroesListByAttribute('int');
   List<dynamic> get strengthHeroes => _getHeroesListByAttribute('str');
   List<dynamic> get universalHeroes => _getHeroesListByAttribute('all');
 
-  Future<void> _fetchHeroes() async {
-    final response = await http.get(Uri.parse('${apiUrl}constants/heroes'));
+  Future<void> __baseFetch(String url, Function(Map<String, dynamic>) updater) async {
+    final response = await http.get(Uri.parse(apiUrl + url));
     if (response.statusCode == 200) {
-      _heroes = json.decode(response.body);
-      notifyListeners();
+      final data = json.decode(response.body);
+      updater(data);
     } else {
-      throw Exception('Failed to load heroes');
+      throw Exception('Failed to load $url');
     }
+  }
+
+  Future<void> _fetchHeroes() async {
+    await __baseFetch('constants/heroes', (data) => _heroes = data);
+  }
+
+  Future<void> _fetchAbilities() async {
+    await __baseFetch('constants/abilities', (data) => _abilities = data);
+  }
+
+  Future<void> _fetchHeroAbilities() async {
+    await __baseFetch('constants/hero_abilities', (data) => _heroAbilities = data);
   }
 
   Future<void> _fetchItems() async {
@@ -58,16 +72,7 @@ class DataProvider with ChangeNotifier {
       _gameVersion = data.last['name'];
       notifyListeners();
     } else {
-      throw Exception('Failed to load gameVersion');
-    }
-  }
-
-  Future<void> _fetchAbilities(int heroID) async {
-    final abilitiesResponse = await http.get(Uri.parse('${apiUrl}constants/abilities'));
-    if (abilitiesResponse.statusCode == 200) {
-      _abilities = json.decode(abilitiesResponse.body);
-    } else {
-      throw Exception('Failed to load abilities');
+      throw Exception('Failed to load game version');
     }
   }
 

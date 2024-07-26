@@ -3,12 +3,14 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class DataProvider with ChangeNotifier {
+
+  final String apiUrl = 'https://api.opendota.com/api/';
+
   Map<String, dynamic> _heroes = {};
   Map<String, dynamic> _items = {};
   Map<String, dynamic> _abilities = {};
   List<dynamic> _simpleItems = [];
   List<dynamic> _complexItems = [];
-  
   String _gameVersion = '';
 
   Map<String, dynamic> get heroes => _heroes;
@@ -26,7 +28,7 @@ class DataProvider with ChangeNotifier {
   List<dynamic> get universalHeroes => _getHeroesListByAttribute('all');
 
   Future<void> _fetchHeroes() async {
-    final response = await http.get(Uri.parse('https://api.opendota.com/api/constants/heroes'));
+    final response = await http.get(Uri.parse('${apiUrl}constants/heroes'));
     if (response.statusCode == 200) {
       _heroes = json.decode(response.body);
       notifyListeners();
@@ -36,7 +38,7 @@ class DataProvider with ChangeNotifier {
   }
 
   Future<void> _fetchItems() async {
-    final response = await http.get(Uri.parse('https://api.opendota.com/api/constants/items'));
+    final response = await http.get(Uri.parse('${apiUrl}constants/items'));
     if (response.statusCode == 200) {
       _items = json.decode(response.body);
 
@@ -50,7 +52,7 @@ class DataProvider with ChangeNotifier {
   }
 
   Future<void> _fetchGameVersion() async {
-    final response = await http.get(Uri.parse('https://api.opendota.com/api/constants/patch'));
+    final response = await http.get(Uri.parse('${apiUrl}constants/patch'));
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
       _gameVersion = data.last['name'];
@@ -61,7 +63,7 @@ class DataProvider with ChangeNotifier {
   }
 
   Future<void> _fetchAbilities(int heroID) async {
-    final abilitiesResponse = await http.get(Uri.parse('https://api.opendota.com/api/constants/abilities'));
+    final abilitiesResponse = await http.get(Uri.parse('${apiUrl}constants/abilities'));
     if (abilitiesResponse.statusCode == 200) {
       _abilities = json.decode(abilitiesResponse.body);
     } else {

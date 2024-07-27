@@ -9,25 +9,34 @@ class DataProvider with ChangeNotifier {
   Map<String, dynamic> _heroes = {};
   Map<String, dynamic> _items = {};
   Map<String, dynamic> _abilities = {};
-  Map<String, dynamic> _heroAbilities = {};
   List<dynamic> _simpleItems = [];
   List<dynamic> _complexItems = [];
   String _gameVersion = '';
 
   Map<String, dynamic> get heroes => _heroes;
   Map<String, dynamic> get abilities => _abilities;
-  Map<String, dynamic> get heroAbilities => _heroAbilities;
   List<dynamic> get simpleItems => _simpleItems;
   List<dynamic> get complexItems => _complexItems;
   String get gameVersion => _gameVersion;
 
   List<dynamic> _getHeroesListByAttribute(String attributeTag)
     => _heroes.values.where((hero) => hero['primary_attr'] == attributeTag).toList();
-  
+
   List<dynamic> get agilityHeroes =>  _getHeroesListByAttribute('agi');
   List<dynamic> get intelligenceHeroes => _getHeroesListByAttribute('int');
   List<dynamic> get strengthHeroes => _getHeroesListByAttribute('str');
   List<dynamic> get universalHeroes => _getHeroesListByAttribute('all');
+
+  Map<String, dynamic> getHeroAbilitiesById(int id) {
+    final Map<String, dynamic> result = {};
+    final String heroName = _heroes[id.toString()]['name'].replaceFirst('npc_dota_hero_', '');
+    for (var entry in abilities.entries) {
+      if (entry.key.contains(heroName)) {
+        result[entry.key] = entry.value;
+      }
+    }
+    return result;
+  }
 
   Future<void> __baseFetch(String url, Function(Map<String, dynamic>) updater) async {
     final response = await http.get(Uri.parse(apiUrl + url));
@@ -45,10 +54,6 @@ class DataProvider with ChangeNotifier {
 
   Future<void> _fetchAbilities() async {
     await __baseFetch('constants/abilities', (data) => _abilities = data);
-  }
-
-  Future<void> _fetchHeroAbilities() async {
-    await __baseFetch('constants/hero_abilities', (data) => _heroAbilities = data);
   }
 
   Future<void> _fetchItems() async {

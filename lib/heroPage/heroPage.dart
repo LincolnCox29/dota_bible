@@ -1,7 +1,33 @@
+import 'package:dota_bible/dataProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 part 'functions.dart';
 
-class HeroPage extends StatelessWidget {
+class HeroPage extends StatefulWidget {
+  @override
+  State<HeroPage> createState() => _HeroPageState();
+}
+
+class _HeroPageState extends State<HeroPage> {
+  late Map<String, dynamic> abilities;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final Map<String, dynamic> hero = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    abilities = Provider.of<DataProvider>(context).getHeroAbilitiesById(hero['id']);
+  }
+
+  Widget _buildAbilityImage(String imageUrl) {
+    return Image.network(
+      'https://cdn.cloudflare.steamstatic.com$imageUrl',
+      errorBuilder: (context, error, stackTrace) {
+        // Отображение заглушки или пустого контейнера в случае ошибки
+        return const SizedBox.shrink(); // Или вы можете вернуть другой виджет, например, заглушку
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> hero = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
@@ -114,9 +140,9 @@ class HeroPage extends StatelessWidget {
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: hero['spells']?.length ?? 0,
+                itemCount: abilities.entries.length,
                 itemBuilder: (context, index) {
-                  final dynamic thisSpell = hero['spells'][index];
+                  final ability = abilities.entries.elementAt(index).value;
                   return DecoratedBox(
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -131,10 +157,10 @@ class HeroPage extends StatelessWidget {
                         bottom: 5,
                       ),
                       title: Text(
-                        thisSpell.name,
+                        ability['dname'],
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
-                      leading: Image.network(thisSpell.icon),
+                      leading: _buildAbilityImage(ability['img']),
                       onTap: () {
                         showDialog(
                           context: context,
@@ -149,9 +175,9 @@ class HeroPage extends StatelessWidget {
                                   children: <Widget>[
                                     Stack(
                                       children: <Widget>[
-                                        Image.network(thisSpell.icon),
+                                        _buildAbilityImage(ability['img']),
                                         Text(
-                                          thisSpell.name,
+                                          ability['dname'],
                                           style: const TextStyle(
                                             shadows: [
                                               Shadow(
@@ -168,23 +194,23 @@ class HeroPage extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         labeleContainer(context, 'Description'),
-                                        Text(thisSpell.description ?? 'No Description'),
+                                        Text(ability['desc'] ?? 'No Description'),
                                         labeleContainer(context, 'Stats'),
                                         Padding(
                                           padding: const EdgeInsets.only(bottom: 5),
                                           child: Text(
-                                            'Damage Type: ${thisSpell.damageType ?? 'N/A'}',
+                                            'Damage Type: ${ability['dmg_type'] ?? 'N/A'}',
                                           ),
                                         ),
                                         ListView.builder(
                                           shrinkWrap: true,
                                           physics: const NeverScrollableScrollPhysics(),
-                                          itemCount: thisSpell.fields?.length ?? 0,
+                                          itemCount: ability['attrib'].length,
                                           itemBuilder: (context, index) {
-                                            final field = thisSpell.fields[index];
+                                            final attrib = ability['attrib'][index];
                                             return Padding(
                                               padding: const EdgeInsets.only(bottom: 5),
-                                              child: Text(field),
+                                              child: Text('${attrib['header']} : ${attrib['value']}'),
                                             );
                                           },
                                         ),
@@ -200,7 +226,7 @@ class HeroPage extends StatelessWidget {
                     ),
                   );
                 },
-              ),
+              )
             ],
           ),
         ],

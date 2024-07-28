@@ -31,7 +31,7 @@ class DataProvider with ChangeNotifier {
     final Map<String, dynamic> result = {};
     final String heroName = _heroes[id.toString()]['name'].replaceFirst('npc_dota_hero_', '');
     for (var entry in abilities.entries) {
-      if (entry.key.contains(heroName)) {
+      if (entry.key.contains(heroName) && !entry.key.contains('special_bonus_unique')) {
         result[entry.key] = entry.value;
       }
     }
@@ -85,5 +85,6 @@ class DataProvider with ChangeNotifier {
     await _fetchHeroes();
     await _fetchItems();
     await _fetchGameVersion();
+    await _fetchAbilities();
   }
 }

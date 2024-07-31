@@ -143,87 +143,90 @@ class _HeroPageState extends State<HeroPage> {
                 itemCount: abilities.entries.length,
                 itemBuilder: (context, index) {
                   final ability = abilities.entries.elementAt(index).value;
-                  return DecoratedBox(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                        color: const Color.fromARGB(225, 15, 76, 117).withOpacity(.1),
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1,
+                          color: const Color.fromARGB(225, 15, 76, 117).withOpacity(.1),
+                        ),
                       ),
-                    ),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.only(
-                        left: 5,
-                        top: 5,
-                        bottom: 5,
-                      ),
-                      title: Text(
-                        ability['dname'],
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      leading: _buildAbilityImage(ability['img']),
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              backgroundColor: const Color.fromARGB(225, 27, 38, 44),
-                              content: SizedBox(
-                                width: 300,
-                                height: 600,
-                                child: ListView(
-                                  shrinkWrap: true,
-                                  children: <Widget>[
-                                    Stack(
-                                      children: <Widget>[
-                                        _buildAbilityImage(ability['img']),
-                                        Text(
-                                          ability['dname'],
-                                          style: const TextStyle(
-                                            shadows: [
-                                              Shadow(
-                                                color: Colors.black,
-                                                offset: Offset(1, 1),
-                                                blurRadius: 2,
-                                              ),
-                                            ],
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.only(
+                          left: 5,
+                          top: 5,
+                          bottom: 5,
+                        ),
+                        title: Text(
+                          ability['dname'] ?? 'No Ability Name',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        leading: _buildAbilityImage(ability['img']),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor: const Color.fromARGB(225, 27, 38, 44),
+                                content: SizedBox(
+                                  width: 300,
+                                  height: 600,
+                                  child: ListView(
+                                    shrinkWrap: true,
+                                    children: <Widget>[
+                                      Stack(
+                                        children: <Widget>[
+                                          _buildAbilityImage(ability['img']),
+                                          Text(
+                                            ability['dname'],
+                                            style: const TextStyle(
+                                              shadows: [
+                                                Shadow(
+                                                  color: Colors.black,
+                                                  offset: Offset(1, 1),
+                                                  blurRadius: 2,
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        labeleContainer(context, 'Description'),
-                                        Text(ability['desc'] ?? 'No Description'),
-                                        labeleContainer(context, 'Stats'),
-                                        Padding(
-                                          padding: const EdgeInsets.only(bottom: 5),
-                                          child: Text(
-                                            'Damage Type: ${ability['dmg_type'] ?? 'N/A'}',
+                                        ],
+                                      ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          labeleContainer(context, 'Description'),
+                                          Text(ability['desc'] ?? 'No Description'),
+                                          labeleContainer(context, 'Stats'),
+                                          Padding(
+                                            padding: const EdgeInsets.only(bottom: 5),
+                                            child: Text(
+                                              'Damage Type: ${ability['dmg_type'] ?? 'N/A'}',
+                                            ),
                                           ),
-                                        ),
-                                        ListView.builder(
-                                          shrinkWrap: true,
-                                          physics: const NeverScrollableScrollPhysics(),
-                                          itemCount: ability['attrib'].length,
-                                          itemBuilder: (context, index) {
-                                            final attrib = ability['attrib'][index];
-                                            return Padding(
-                                              padding: const EdgeInsets.only(bottom: 5),
-                                              child: Text('${attrib['header']} : ${attrib['value']}'),
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            itemCount: ability['attrib'].length,
+                                            itemBuilder: (context, index) {
+                                              final attrib = ability['attrib'][index];
+                                              return Padding(
+                                                padding: const EdgeInsets.only(bottom: 5),
+                                                child: Text('${attrib['header']} : ${attrib['value']}'),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    )
                   );
                 },
               )

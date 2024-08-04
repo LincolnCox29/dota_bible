@@ -9,6 +9,7 @@ class DataProvider with ChangeNotifier {
   Map<String, dynamic> _heroes = {};
   Map<String, dynamic> _items = {};
   Map<String, dynamic> _abilities = {};
+  Map<String, dynamic> _abilitiesSortByHero = {};
   List<dynamic> _simpleItems = [];
   List<dynamic> _complexItems = [];
   String _gameVersion = '';
@@ -27,16 +28,18 @@ class DataProvider with ChangeNotifier {
   List<dynamic> get strengthHeroes => _getHeroesListByAttribute('str');
   List<dynamic> get universalHeroes => _getHeroesListByAttribute('all');
 
-  Map<String, dynamic> getHeroAbilitiesById(int id) {
-    final Map<String, dynamic> result = {};
-    final String heroName = _heroes[id.toString()]['name'].replaceFirst('npc_dota_hero_', '');
-    for (var entry in abilities.entries) {
-      if (entry.key.contains(heroName) && !entry.key.contains('special_bonus_unique')) {
-        result[entry.key] = entry.value;
-      }
+Map<String, dynamic> getHeroAbilitiesById(int id) {
+  final Map<String, dynamic> result = {};
+  final String name = _heroes[id.toString()]['name'];
+  final List<dynamic> abilities = _abilitiesSortByHero[name]['abilities'];
+
+  for (String ability in abilities) {
+    if (_abilities.containsKey(ability) && ability != 'generic_hidden') {
+      result.addAll({ability : _abilities[ability]});
     }
-    return result;
   }
+  return result;
+}
 
   Future<void> __baseFetch(String url, Function(Map<String, dynamic>) updater) async {
     final response = await http.get(Uri.parse(apiUrl + url));
@@ -54,6 +57,10 @@ class DataProvider with ChangeNotifier {
 
   Future<void> _fetchAbilities() async {
     await __baseFetch('constants/abilities', (data) => _abilities = data);
+  }
+
+  Future<void> _fetchAbilitiesSortByHero() async {
+    await __baseFetch('constants/hero_abilities', (data) => _abilitiesSortByHero = data);
   }
 
   Future<void> _fetchItems() async {
@@ -82,9 +89,10 @@ class DataProvider with ChangeNotifier {
   }
 
   Future<void> fetchData() async {
-    await _fetchHeroes();
-    await _fetchItems();
     await _fetchGameVersion();
     await _fetchAbilities();
+    await _fetchAbilitiesSortByHero();
+    await _fetchHeroes();
+    await _fetchItems();
   }
 }

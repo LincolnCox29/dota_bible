@@ -22,8 +22,7 @@ class _HeroPageState extends State<HeroPage> {
     return Image.network(
       'https://cdn.cloudflare.steamstatic.com$imageUrl',
       errorBuilder: (context, error, stackTrace) {
-        // Отображение заглушки или пустого контейнера в случае ошибки
-        return const SizedBox.shrink(); // Или вы можете вернуть другой виджет, например, заглушку
+        return const SizedBox.shrink();
       },
     );
   }
@@ -84,11 +83,17 @@ class _HeroPageState extends State<HeroPage> {
                 ),
               ),
               bar(
-                Text('${hero['base_health'] ?? 'N/A'}\n${hero['base_health_regen'] ?? 'N/A'}'),
+                Text(
+                  '${hero['base_health'] + (hero['base_str'] * 22) ?? 'N/A'}\n'
+                  '${hero['base_health_regen'] + (hero['base_str'] * 0.1) ?? 'N/A'}'
+                ),
                 [const Color.fromARGB(255, 12, 90, 15), Colors.green],
               ),
               bar(
-                Text('${hero['base_mana'] ?? 'N/A'}\n${hero['base_mana_regen'] ?? 'N/A'}'),
+                Text(
+                  '${hero['base_mana'] + (hero['base_int'] * 12) ?? 'N/A'}\n' 
+                  '${hero['base_mana_regen'] + (hero['base_int'] * 0.05) ?? 'N/A'}'
+                ),
                 [const Color.fromARGB(255, 12, 15, 90), Colors.blue],
               ),
               labeleContainer(context, 'Stats'),

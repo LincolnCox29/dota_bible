@@ -71,3 +71,11 @@ DecoratedBox bar(value, List<Color> gradientColors){
     )
   );
 }
+
+int calculHeroHp(int baseHp, int baseStrength) => baseHp + (baseStrength * 22);
+
+double calculHeroHpRegen(dynamic baseHpRegen, int baseStrength) => baseHpRegen + (baseStrength * 0.1);
+
+int calculHeroMp(int baseMp, int baseIntelligence) => baseMp + (baseIntelligence * 12);
+
+double calculHeroMpRegen(dynamic baseMpRegen, int baseIntelligence) => baseMpRegen + (baseIntelligence * 0.05);

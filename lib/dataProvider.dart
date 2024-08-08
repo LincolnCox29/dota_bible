@@ -28,18 +28,18 @@ class DataProvider with ChangeNotifier {
   List<dynamic> get strengthHeroes => _getHeroesListByAttribute('str');
   List<dynamic> get universalHeroes => _getHeroesListByAttribute('all');
 
-Map<String, dynamic> getHeroAbilitiesById(int id) {
-  final Map<String, dynamic> result = {};
-  final String name = _heroes[id.toString()]['name'];
-  final List<dynamic> abilities = _abilitiesSortByHero[name]['abilities'];
+  Map<String, dynamic> getHeroAbilitiesById(int id) {
+    final Map<String, dynamic> result = {};
+    final String name = _heroes[id.toString()]['name'];
+    final List<dynamic> abilities = _abilitiesSortByHero[name]['abilities'];
 
-  for (String ability in abilities) {
-    if (_abilities.containsKey(ability) && ability != 'generic_hidden') {
-      result.addAll({ability : _abilities[ability]});
+    for (String ability in abilities) {
+      if (_abilities.containsKey(ability) && ability != 'generic_hidden') {
+        result.addAll({ability : _abilities[ability]});
+      }
     }
+    return result;
   }
-  return result;
-}
 
   Future<void> __baseFetch(String url, Function(Map<String, dynamic>) updater) async {
     final response = await http.get(Uri.parse(apiUrl + url));

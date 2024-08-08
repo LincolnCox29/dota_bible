@@ -84,15 +84,15 @@ class _HeroPageState extends State<HeroPage> {
               ),
               bar(
                 Text(
-                  '${hero['base_health'] + (hero['base_str'] * 22) ?? 'N/A'}\n'
-                  '${hero['base_health_regen'] + (hero['base_str'] * 0.1) ?? 'N/A'}'
+                  '${calculHeroHp(hero['base_health'], hero['base_str']).toString()}\n'
+                  '${calculHeroHpRegen(hero['base_health_regen'],hero['base_str']).toStringAsFixed(1)}'
                 ),
                 [const Color.fromARGB(255, 12, 90, 15), Colors.green],
               ),
               bar(
                 Text(
-                  '${hero['base_mana'] + (hero['base_int'] * 12) ?? 'N/A'}\n' 
-                  '${hero['base_mana_regen'] + (hero['base_int'] * 0.05) ?? 'N/A'}'
+                  '${calculHeroMp(hero['base_mana'], hero['base_int']).toString()}\n' 
+                  '${calculHeroMpRegen(hero['base_mana_regen'], hero['base_int']).toStringAsFixed(1)}'
                 ),
                 [const Color.fromARGB(255, 12, 15, 90), Colors.blue],
               ),

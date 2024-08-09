@@ -2,18 +2,41 @@ part of 'heroPage.dart';
 
 String capitalize(String name) => '${name[0].toUpperCase()}${name.substring(1)}';
 
-Column attributeStats(String link,  Text value){
-  return Column(
-    children : [
-      Image.asset(
-        link,
-        scale: 0.9,
-        width: 70,
-        height: 30,
-      ),
-      value
-    ]
+class AttributeStatsWidget extends StatelessWidget{
+
+  final String attribute;
+  final Map<String, dynamic> hero;
+
+  const AttributeStatsWidget(
+    {required this.attribute, required this.hero}
   );
+
+  @override
+  Widget build(BuildContext context) {
+    final String attribTag = attribute.substring(0,3).toLowerCase();
+    return Column(
+      children : [
+        Image.asset(
+          'assets/img/attribute/${attribute}_attribute_symbol.png',
+          scale: 0.9,
+          width: 70,
+          height: 30,
+        ),
+        Row(
+          children: [
+            Text(hero['base_${attribTag}'].toString()),
+            Text(
+              '+${hero['${attribTag}_gain']}',
+              textScaler: const TextScaler.linear(0.8),
+              style: const TextStyle(
+                color: Colors.white60
+              ),
+            )
+          ],
+        )
+      ]
+    );
+  }
 }
 
 Container labeleContainer(context, text){

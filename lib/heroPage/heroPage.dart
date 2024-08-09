@@ -67,17 +67,17 @@ class _HeroPageState extends State<HeroPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    attributeStats(
-                      'assets/img/attribute/Strength_attribute_symbol.png',
-                      Text(hero['base_str']?.toString() ?? 'N/A'),
+                    AttributeStatsWidget(
+                      attribute: 'Strength',
+                      hero: hero,
                     ),
-                    attributeStats(
-                      'assets/img/attribute/Agility_attribute_symbol.png',
-                      Text(hero['base_agi']?.toString() ?? 'N/A'),
+                    AttributeStatsWidget(
+                      attribute: 'Agility',
+                      hero: hero,
                     ),
-                    attributeStats(
-                      'assets/img/attribute/Intelligence_attribute_symbol.png',
-                      Text(hero['base_int']?.toString() ?? 'N/A'),
+                    AttributeStatsWidget(
+                      attribute: 'Intelligence',
+                      hero: hero,
                     ),
                   ],
                 ),

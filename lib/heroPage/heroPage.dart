@@ -29,6 +29,7 @@ class _HeroPageState extends State<HeroPage> {
 
   @override
   Widget build(BuildContext context) {
+
     final Map<String, dynamic> hero = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     return Scaffold(
@@ -119,7 +120,7 @@ class _HeroPageState extends State<HeroPage> {
                 child: Column(
                   children: [
                     stat(
-                      'Armor (EHP): ${hero['base_armor'] ?? 'N/A'}',
+                      'Armor: ${calculHeroArmor(hero['base_armor'], hero['base_agi']).toStringAsFixed(1)}',
                       'assets/img/icons/Armor_icon.png',
                     ),
                     stat(
@@ -184,7 +185,7 @@ class _HeroPageState extends State<HeroPage> {
                                         children: <Widget>[
                                           _buildAbilityImage(ability['img']),
                                           Text(
-                                            ability['dname'],
+                                            ability['dname'] ?? 'No Ability Name',
                                             style: const TextStyle(
                                               shadows: [
                                                 Shadow(

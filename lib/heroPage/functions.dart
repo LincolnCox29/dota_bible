@@ -102,3 +102,5 @@ double calculHeroHpRegen(dynamic baseHpRegen, int baseStrength) => baseHpRegen +
 int calculHeroMp(int baseMp, int baseIntelligence) => baseMp + (baseIntelligence * 12);
 
 double calculHeroMpRegen(dynamic baseMpRegen, int baseIntelligence) => baseMpRegen + (baseIntelligence * 0.05);
+
+double calculHeroArmor(int baseArmor, int baseAgility) => baseArmor + (baseAgility / 6);

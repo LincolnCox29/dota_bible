@@ -1,3 +1,4 @@
+import 'package:dota_bible/classes/hero.dart';
 import 'package:dota_bible/dataProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +15,8 @@ class _HeroPageState extends State<HeroPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final Map<String, dynamic> hero = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    abilities = Provider.of<DataProvider>(context).getHeroAbilitiesById(hero['id']);
+    final Map<String, dynamic> heroMap = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    abilities = Provider.of<DataProvider>(context).getHeroAbilitiesById(heroMap['id']);
   }
 
   Widget _buildAbilityImage(String imageUrl) {
@@ -30,13 +31,14 @@ class _HeroPageState extends State<HeroPage> {
   @override
   Widget build(BuildContext context) {
 
-    final Map<String, dynamic> hero = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final Map<String, dynamic> heroMap = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final DotaHero hero = mapToHero(heroMap);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: Text(
-          hero['localized_name'] ?? 'Unknown Hero',
+          hero.localizedName,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
       ),
@@ -58,7 +60,7 @@ class _HeroPageState extends State<HeroPage> {
                     ],
                   ),
                   child: Image.asset(
-                    'assets/img/heroes/${hero['localized_name']}.png',
+                    'assets/img/heroes/${hero.localizedName}.png',
                     scale: 1.2,
                   ),
                 ),
@@ -70,30 +72,33 @@ class _HeroPageState extends State<HeroPage> {
                   children: [
                     AttributeStatsWidget(
                       attribute: 'Strength',
-                      hero: hero,
+                      base: hero.baseStr,
+                      gain: hero.strGain,
                     ),
                     AttributeStatsWidget(
                       attribute: 'Agility',
-                      hero: hero,
+                      base: hero.baseAgi,
+                      gain: hero.agiGain,
                     ),
                     AttributeStatsWidget(
                       attribute: 'Intelligence',
-                      hero: hero,
+                      base: hero.baseInt,
+                      gain: hero.intGain,
                     ),
                   ],
                 ),
               ),
               bar(
                 Text(
-                  '${calculHeroHp(hero['base_health'], hero['base_str']).toString()}\n'
-                  '${calculHeroHpRegen(hero['base_health_regen'],hero['base_str']).toStringAsFixed(1)}'
+                  '${hero.calculHeroHp}\n'
+                  '${hero.calculHeroHpRegen.toStringAsFixed(1)}'
                 ),
                 [const Color.fromARGB(255, 12, 90, 15), Colors.green],
               ),
               bar(
                 Text(
-                  '${calculHeroMp(hero['base_mana'], hero['base_int']).toString()}\n' 
-                  '${calculHeroMpRegen(hero['base_mana_regen'], hero['base_int']).toStringAsFixed(1)}'
+                  '${hero.calculHeroMp.toString()}\n' 
+                  '${hero.calculHeroMpRegen.toStringAsFixed(1)}'
                 ),
                 [const Color.fromARGB(255, 12, 15, 90), Colors.blue],
               ),
@@ -120,23 +125,23 @@ class _HeroPageState extends State<HeroPage> {
                 child: Column(
                   children: [
                     stat(
-                      'Armor: ${calculHeroArmor(hero['base_armor'], hero['base_agi']).toStringAsFixed(1)}',
+                      'Armor: ${hero.calculHeroArmor.toStringAsFixed(1)}',
                       'assets/img/icons/Armor_icon.png',
                     ),
                     stat(
-                      'Magic Resist: ${hero['base_mr'] ?? 'N/A'}',
+                      'Magic Resist: ${hero.baseMr}',
                       'assets/img/icons/MagResist_icon.png',
                     ),
                     stat(
-                      'Move Speed: ${hero['move_speed'] ?? 'N/A'}',
+                      'Move Speed: ${hero.moveSpeed}',
                       'assets/img/icons/MS_icon.png',
                     ),
                     stat(
-                      'Attack Speed: ${hero['base_attack_time'] ?? 'N/A'}',
+                      'Attack Speed: ${hero.baseAttackTime}',
                       'assets/img/icons/AttackSpeed_icon.png',
                     ),
                     stat(
-                      'Attack Range: ${hero['attack_range'] ?? 'N/A'}',
+                      'Attack Range: ${hero.attackRange}',
                       'assets/img/icons/AttackRange_icon.png',
                     ),
                   ],

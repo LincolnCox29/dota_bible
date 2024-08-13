@@ -5,15 +5,15 @@ String capitalize(String name) => '${name[0].toUpperCase()}${name.substring(1)}'
 class AttributeStatsWidget extends StatelessWidget{
 
   final String attribute;
-  final Map<String, dynamic> hero;
+  final double gain;
+  final int base;
 
   const AttributeStatsWidget(
-    {required this.attribute, required this.hero}
+    {required this.attribute, required this.gain, required this.base, }
   );
 
   @override
   Widget build(BuildContext context) {
-    final String attribTag = attribute.substring(0,3).toLowerCase();
     return Column(
       children : [
         Image.asset(
@@ -24,9 +24,9 @@ class AttributeStatsWidget extends StatelessWidget{
         ),
         Row(
           children: [
-            Text(hero['base_${attribTag}'].toString()),
+            Text(base.toString()),
             Text(
-              '+${hero['${attribTag}_gain']}',
+              '+$gain',
               textScaler: const TextScaler.linear(0.8),
               style: const TextStyle(
                 color: Colors.white60
@@ -94,13 +94,3 @@ DecoratedBox bar(value, List<Color> gradientColors){
     )
   );
 }
-
-int calculHeroHp(int baseHp, int baseStrength) => baseHp + (baseStrength * 22);
-
-double calculHeroHpRegen(dynamic baseHpRegen, int baseStrength) => baseHpRegen + (baseStrength * 0.1);
-
-int calculHeroMp(int baseMp, int baseIntelligence) => baseMp + (baseIntelligence * 12);
-
-double calculHeroMpRegen(dynamic baseMpRegen, int baseIntelligence) => baseMpRegen + (baseIntelligence * 0.05);
-
-double calculHeroArmor(int baseArmor, int baseAgility) => baseArmor + (baseAgility / 6);

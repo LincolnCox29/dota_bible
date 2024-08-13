@@ -8,7 +8,7 @@ The data will always be up-to-date, even without updates, as it is sourced from 
 
 ## Installation
 
-If you want a hassle-free installation, download it from: [Google Drive](https://drive.google.com/file/d/1YuUys5pu_yt52CRjP6H-XKdqWgwZ1B1E/view?usp=sharing)
+If you want a hassle-free installation, download it from: [Google Drive](https://drive.google.com/file/d/1wnYbI4fQFVzhacNqVqsEHHHJtM4-sx0S/view?usp=sharing)
 
 If, for some reason, you prefer to build the app yourself:
 1. Make sure you have Flutter installed. If not, install it following the instructions on the official [Flutter](https://flutter.dev) website.

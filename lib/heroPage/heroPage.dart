@@ -1,3 +1,4 @@
+import 'package:dota_bible/classes/ability.dart';
 import 'package:dota_bible/classes/hero.dart';
 import 'package:dota_bible/dataProvider.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,10 @@ class _HeroPageState extends State<HeroPage> {
     abilities = Provider.of<DataProvider>(context).getHeroAbilitiesById(heroMap['id']);
   }
 
-  Widget _buildAbilityImage(String imageUrl) {
+  Widget _buildAbilityImage(String? imageUrl) {
+    if (imageUrl == null){
+      return const SizedBox.shrink();
+    }
     return Image.network(
       'https://cdn.cloudflare.steamstatic.com$imageUrl',
       errorBuilder: (context, error, stackTrace) {
@@ -153,7 +157,8 @@ class _HeroPageState extends State<HeroPage> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: abilities.entries.length,
                 itemBuilder: (context, index) {
-                  final ability = abilities.entries.elementAt(index).value;
+                  final Map<String, dynamic> abilityMap = abilities.entries.elementAt(index).value;
+                  final Ability ability = mapToAbility(abilityMap);
                   return SizedBox(
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: DecoratedBox(
@@ -170,10 +175,10 @@ class _HeroPageState extends State<HeroPage> {
                           bottom: 5,
                         ),
                         title: Text(
-                          ability['dname'] ?? 'No Ability Name',
+                          ability.dname ?? 'No Ability Name',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
-                        leading: _buildAbilityImage(ability['img']),
+                        leading: _buildAbilityImage(ability.img),
                         onTap: () {
                           showDialog(
                             context: context,
@@ -188,9 +193,9 @@ class _HeroPageState extends State<HeroPage> {
                                     children: <Widget>[
                                       Stack(
                                         children: <Widget>[
-                                          _buildAbilityImage(ability['img']),
+                                          _buildAbilityImage(ability.img),
                                           Text(
-                                            ability['dname'] ?? 'No Ability Name',
+                                            ability.dname ?? 'No Ability Name',
                                             style: const TextStyle(
                                               shadows: [
                                                 Shadow(
@@ -207,20 +212,20 @@ class _HeroPageState extends State<HeroPage> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           labeleContainer(context, 'Description'),
-                                          Text(ability['desc'] ?? 'No Description'),
+                                          Text(ability.desc ?? 'No Description'),
                                           labeleContainer(context, 'Stats'),
                                           Padding(
                                             padding: const EdgeInsets.only(bottom: 5),
                                             child: Text(
-                                              'Damage Type: ${ability['dmg_type'] ?? 'N/A'}',
+                                              'Damage Type: ${ability.dmgType}',
                                             ),
                                           ),
                                           ListView.builder(
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
-                                            itemCount: ability['attrib'].length,
+                                            itemCount: ability.attrib.length,
                                             itemBuilder: (context, index) {
-                                              final attrib = ability['attrib'][index];
+                                              final attrib = ability.attrib[index];
                                               return Padding(
                                                 padding: const EdgeInsets.only(bottom: 5),
                                                 child: Text('${attrib['header']} : ${attrib['value']}'),

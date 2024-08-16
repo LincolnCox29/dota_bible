@@ -1,4 +1,5 @@
 import 'package:dota_bible/classes/ability.dart';
+import 'package:dota_bible/classes/abilityAttribute.dart';
 import 'package:dota_bible/classes/hero.dart';
 import 'package:dota_bible/dataProvider.dart';
 import 'package:flutter/material.dart';
@@ -225,10 +226,10 @@ class _HeroPageState extends State<HeroPage> {
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemCount: ability.attrib.length,
                                             itemBuilder: (context, index) {
-                                              final attrib = ability.attrib[index];
+                                              final AbilityAttribute attrib = mapToAbilityAttribute(ability.attrib[index]);
                                               return Padding(
                                                 padding: const EdgeInsets.only(bottom: 5),
-                                                child: Text('${attrib['header']} : ${attrib['value']}'),
+                                                child: Text(attrib.toString()),
                                               );
                                             },
                                           ),

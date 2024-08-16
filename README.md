@@ -8,7 +8,7 @@ The data will always be up-to-date, even without updates, as it is sourced from 
 
 ## Installation
 
-If you want a hassle-free installation, download it from: [Google Drive](https://drive.google.com/file/d/1wnYbI4fQFVzhacNqVqsEHHHJtM4-sx0S/view?usp=sharing)
+If you want a hassle-free installation, download it from: [Google Drive](https://drive.google.com/file/d/1MRIngc0EPmlS6N95CdbA3j3MhC-B2T69/view?usp=sharing)
 
 If, for some reason, you prefer to build the app yourself:
 1. Make sure you have Flutter installed. If not, install it following the instructions on the official [Flutter](https://flutter.dev) website.
@@ -37,7 +37,7 @@ If, for some reason, you prefer to build the app yourself:
 
 ## Установка
 
-Если вы хотите просто установить приложение без лишних хлопот, скачайте его отсюда: [Google Диск](https://drive.google.com/file/d/1YuUys5pu_yt52CRjP6H-XKdqWgwZ1B1E/view?usp=sharing)
+Если вы хотите просто установить приложение без лишних хлопот, скачайте его отсюда: [Google Диск](https://drive.google.com/file/d/1MRIngc0EPmlS6N95CdbA3j3MhC-B2T69/view?usp=sharing)
 
 Если по какой-то причине вы хотите собрать программу самостоятельно:
 1. Убедитесь, что у вас установлен Flutter. Если нет, установите его по инструкции на официальном [сайте Flutter](https://flutter.dev).

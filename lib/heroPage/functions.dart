@@ -56,14 +56,25 @@ class LabeleContainer extends StatelessWidget {
   }
 }
 
-Row stat(text, icon){
-  return Row(
-    children: [
-      const Padding(padding: EdgeInsets.symmetric(vertical: 15)),
-      Image.asset(icon),
-      Text(text)
-    ]
-  );
+class StatWidget extends StatelessWidget {
+
+  final String text;
+  final String icon;
+
+  const StatWidget({required this.text, required this.icon});
+  
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 15)
+        ),
+        Image.asset(icon),
+        Text(text)
+      ]
+    );
+  }
 }
 
 DecoratedBox bar(value, List<Color> gradientColors){

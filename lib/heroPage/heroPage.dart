@@ -131,25 +131,25 @@ class _HeroPageState extends State<HeroPage> {
                 ),
                 child: Column(
                   children: [
-                    stat(
-                      'Armor: ${hero.calculHeroArmor.toStringAsFixed(1)}',
-                      'assets/img/icons/Armor_icon.png',
+                    StatWidget(
+                      text: 'Armor: ${hero.calculHeroArmor.toStringAsFixed(1)}',
+                      icon: 'assets/img/icons/Armor_icon.png',
                     ),
-                    stat(
-                      'Magic Resist: ${hero.baseMr}',
-                      'assets/img/icons/MagResist_icon.png',
+                    StatWidget(
+                      text: 'Magic Resist: ${hero.baseMr}',
+                      icon: 'assets/img/icons/MagResist_icon.png',
                     ),
-                    stat(
-                      'Move Speed: ${hero.moveSpeed}',
-                      'assets/img/icons/MS_icon.png',
+                    StatWidget(
+                      text: 'Move Speed: ${hero.moveSpeed}',
+                      icon: 'assets/img/icons/MS_icon.png',
                     ),
-                    stat(
-                      'Attack Speed: ${hero.baseAttackTime}',
-                      'assets/img/icons/AttackSpeed_icon.png',
+                    StatWidget(
+                      text: 'Attack Speed: ${hero.baseAttackTime}',
+                      icon: 'assets/img/icons/AttackSpeed_icon.png',
                     ),
-                    stat(
-                      'Attack Range: ${hero.attackRange}',
-                      'assets/img/icons/AttackRange_icon.png',
+                    StatWidget(
+                      text: 'Attack Range: ${hero.attackRange}',
+                      icon: 'assets/img/icons/AttackRange_icon.png',
                     ),
                   ],
                 ),

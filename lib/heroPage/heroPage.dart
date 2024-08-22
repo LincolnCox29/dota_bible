@@ -93,19 +93,19 @@ class _HeroPageState extends State<HeroPage> {
                   ],
                 ),
               ),
-              bar(
-                Text(
+              BarWidget(
+                value: Text(
                   '${hero.calculHeroHp}\n'
                   '${hero.calculHeroHpRegen.toStringAsFixed(1)}'
                 ),
-                [const Color.fromARGB(255, 12, 90, 15), Colors.green],
+                gradientColors: const [Color.fromARGB(255, 12, 90, 15), Colors.green],
               ),
-              bar(
-                Text(
+              BarWidget(
+                value: Text(
                   '${hero.calculHeroMp.toString()}\n' 
                   '${hero.calculHeroMpRegen.toStringAsFixed(1)}'
                 ),
-                [const Color.fromARGB(255, 12, 15, 90), Colors.blue],
+                gradientColors: const [Color.fromARGB(255, 12, 15, 90), Colors.blue],
               ),
               const LabeleContainer(
                 text: 'Stats'

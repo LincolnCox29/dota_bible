@@ -77,38 +77,47 @@ class StatWidget extends StatelessWidget {
   }
 }
 
-DecoratedBox bar(value, List<Color> gradientColors){
-  return DecoratedBox(
-    decoration: BoxDecoration(
-      boxShadow: [
-        BoxShadow(
-          color: const Color.fromARGB(225,15,76,117).withOpacity(.1),
-          offset: const Offset(8, 8),
-          blurRadius: 10,
-          spreadRadius: 10
-        )
-      ]
-    ),
-    child : Container(
-      width: 300,
-      margin: const EdgeInsets.symmetric(vertical: 10),
+class BarWidget extends StatelessWidget {
+
+  final Text value;
+  final List<Color> gradientColors;
+
+  const BarWidget({required this.value, required this.gradientColors});
+  
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(5)),
-        gradient: LinearGradient(
-          colors : gradientColors,
-          begin: Alignment.centerLeft,
-          end : Alignment.centerRight,
-        ),
-        border: Border.all(
-          width: 2,
-          color: const Color.fromARGB(225,15,76,117)
-        )
-      ),
-      child: Column(
-        children : [
-          value
+        boxShadow: [
+          BoxShadow(
+            color: const Color.fromARGB(225,15,76,117).withOpacity(.1),
+            offset: const Offset(8, 8),
+            blurRadius: 10,
+            spreadRadius: 10
+          )
         ]
+      ),
+      child : Container(
+        width: 300,
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
+          gradient: LinearGradient(
+            colors : gradientColors,
+            begin: Alignment.centerLeft,
+            end : Alignment.centerRight,
+          ),
+          border: Border.all(
+            width: 2,
+            color: const Color.fromARGB(225,15,76,117)
+          )
+        ),
+        child: Column(
+          children : [
+            value
+          ]
+        )
       )
-    )
-  );
+    );
+  }
 }

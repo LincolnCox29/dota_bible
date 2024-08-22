@@ -107,7 +107,9 @@ class _HeroPageState extends State<HeroPage> {
                 ),
                 [const Color.fromARGB(255, 12, 15, 90), Colors.blue],
               ),
-              labeleContainer(context, 'Stats'),
+              const LabeleContainer(
+                text: 'Stats'
+              ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 margin: const EdgeInsets.symmetric(horizontal: 60),
@@ -152,7 +154,9 @@ class _HeroPageState extends State<HeroPage> {
                   ],
                 ),
               ),
-              labeleContainer(context, 'Spells'),
+              const LabeleContainer(
+                text: 'Spells'
+              ),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -212,9 +216,13 @@ class _HeroPageState extends State<HeroPage> {
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          labeleContainer(context, 'Description'),
+                                          const LabeleContainer(
+                                            text: 'Description'
+                                          ),
                                           Text(ability.desc ?? 'No Description'),
-                                          labeleContainer(context, 'Stats'),
+                                          const LabeleContainer(
+                                            text: 'Stats'
+                                          ),
                                           Padding(
                                             padding: const EdgeInsets.only(bottom: 5),
                                             child: Text(

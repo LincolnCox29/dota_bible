@@ -39,14 +39,21 @@ class AttributeStatsWidget extends StatelessWidget{
   }
 }
 
-Container labeleContainer(context, text){
-  return Container(
-    padding : const EdgeInsets.symmetric(vertical: 20),
-    child: Text(
-      text,
-      style: Theme.of(context).textTheme.bodyLarge
-    ),
-  );
+class LabeleContainer extends StatelessWidget {
+
+  final String text;
+  const LabeleContainer({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding : const EdgeInsets.symmetric(vertical: 20),
+      child: Text(
+        text,
+        style: Theme.of(context).textTheme.bodyLarge
+      ),
+    );
+  }
 }
 
 Row stat(text, icon){

@@ -33,7 +33,6 @@ flutter:
   assets: 
     - assets/
     - assets/img/
-    - assets/img/heroes/
     - assets/img/attribute/
     - assets/img/icons/
     - assets/img/menu/

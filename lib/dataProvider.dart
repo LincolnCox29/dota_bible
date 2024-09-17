@@ -5,6 +5,7 @@ import 'dart:convert';
 class DataProvider with ChangeNotifier {
 
   final String apiUrl = 'https://api.opendota.com/api/';
+  final String steamCdnUrl = 'https://cdn.cloudflare.steamstatic.com';
 
   Map<String, dynamic> _heroes = {};
   Map<String, dynamic> _items = {};

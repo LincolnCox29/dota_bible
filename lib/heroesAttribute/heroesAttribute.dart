@@ -1,9 +1,9 @@
 import 'package:dota_bible/dataProvider.dart';
 import 'package:dota_bible/homePage.dart';
-import 'package:dota_bible/items/items.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dota_bible/heroPage/heroPage.dart';
+import 'package:dota_bible/NullableImage.dart';
 part 'functions.dart';
 
 abstract class HeroesBase extends StatelessWidget {

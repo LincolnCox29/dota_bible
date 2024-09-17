@@ -4,6 +4,7 @@ import 'package:dota_bible/classes/hero.dart';
 import 'package:dota_bible/dataProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:dota_bible/NullableImage.dart';
 part 'functions.dart';
 
 class HeroPage extends StatefulWidget {
@@ -19,18 +20,6 @@ class _HeroPageState extends State<HeroPage> {
     super.didChangeDependencies();
     final Map<String, dynamic> heroMap = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     abilities = Provider.of<DataProvider>(context).getHeroAbilitiesById(heroMap['id']);
-  }
-
-  Widget _buildAbilityImage(String? imageUrl) {
-    if (imageUrl == null){
-      return const SizedBox.shrink();
-    }
-    return Image.network(
-      'https://cdn.cloudflare.steamstatic.com$imageUrl',
-      errorBuilder: (context, error, stackTrace) {
-        return const SizedBox.shrink();
-      },
-    );
   }
 
   @override
@@ -52,7 +41,11 @@ class _HeroPageState extends State<HeroPage> {
           Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.03,
+                  left: MediaQuery.of(context).size.width * 0.2,
+                  right: MediaQuery.of(context).size.width * 0.2,
+                ),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -64,10 +57,12 @@ class _HeroPageState extends State<HeroPage> {
                       ),
                     ],
                   ),
-                  child: Image.asset(
-                    'assets/img/heroes/${hero.localizedName}.png',
-                    scale: 1.2,
-                  ),
+                  child: AspectRatio(
+                    aspectRatio: 2,
+                    child: NullableImage(
+                      imageUrl: '${Provider.of<DataProvider>(context).steamCdnUrl}${hero.imgUrl}',
+                    ),
+                  )
                 ),
               ),
               Padding(
@@ -183,7 +178,9 @@ class _HeroPageState extends State<HeroPage> {
                           ability.dname ?? 'No Ability Name',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
-                        leading: _buildAbilityImage(ability.img),
+                        leading: NullableImage(
+                          imageUrl: '${Provider.of<DataProvider>(context).steamCdnUrl}${ability.img}'
+                        ),
                         onTap: () {
                           showDialog(
                             context: context,
@@ -198,7 +195,9 @@ class _HeroPageState extends State<HeroPage> {
                                     children: <Widget>[
                                       Stack(
                                         children: <Widget>[
-                                          _buildAbilityImage(ability.img),
+                                          NullableImage(
+                                            imageUrl: '${Provider.of<DataProvider>(context).steamCdnUrl}${ability.img}'
+                                          ),
                                           Text(
                                             ability.dname ?? 'No Ability Name',
                                             style: const TextStyle(

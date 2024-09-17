@@ -10,10 +10,8 @@ Widget heroListView(final List<dynamic> heroes){
           heroes[index]['localized_name'],
           style: Theme.of(context).textTheme.bodyLarge
         ),
-        leading: Image.asset(
-          'assets/img/heroes/${heroes[index]['localized_name']}.png',
-          width: getScreenWidth(context) * 0.3 ,
-          height: getScreenHeight(context) * 0.3
+        leading: NullableImage(
+          imageUrl: '${Provider.of<DataProvider>(context).steamCdnUrl}${heroes[index]['img']}',
         ),
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => HeroPage(),

@@ -11,7 +11,10 @@ abstract class HeroesBase extends StatelessWidget {
   final List<dynamic> Function(DataProvider) getHeroes;
   final Widget Function(BuildContext, String) getNextHeroType;
 
-  const HeroesBase({required this.heroType, required this.getHeroes, required this.getNextHeroType});
+  const HeroesBase(
+      {required this.heroType,
+      required this.getHeroes,
+      required this.getNextHeroType});
 
   @override
   Widget build(BuildContext context) {
@@ -42,57 +45,61 @@ abstract class HeroesBase extends StatelessWidget {
 }
 
 class HeroesStrength extends HeroesBase {
-  HeroesStrength() : super(
-    heroType: HeroesStrength,
-    getHeroes: (provider) => provider.strengthHeroes,
-    getNextHeroType: (context, direction) {
-      if (direction == 'next') {
-        return HeroesAgility();
-      } else {
-        return HeroesUniversal();
-      }
-    },
-  );
+  HeroesStrength()
+      : super(
+          heroType: HeroesStrength,
+          getHeroes: (provider) => provider.strengthHeroes,
+          getNextHeroType: (context, direction) {
+            if (direction == 'next') {
+              return HeroesAgility();
+            } else {
+              return HeroesUniversal();
+            }
+          },
+        );
 }
 
 class HeroesAgility extends HeroesBase {
-  HeroesAgility() : super(
-    heroType: HeroesAgility,
-    getHeroes: (provider) => provider.agilityHeroes,
-    getNextHeroType: (context, direction) {
-      if (direction == 'next') {
-        return HeroesIntelligence();
-      } else {
-        return HeroesStrength();
-      }
-    },
-  );
+  HeroesAgility()
+      : super(
+          heroType: HeroesAgility,
+          getHeroes: (provider) => provider.agilityHeroes,
+          getNextHeroType: (context, direction) {
+            if (direction == 'next') {
+              return HeroesIntelligence();
+            } else {
+              return HeroesStrength();
+            }
+          },
+        );
 }
 
 class HeroesIntelligence extends HeroesBase {
-  HeroesIntelligence() : super(
-    heroType: HeroesIntelligence,
-    getHeroes: (provider) => provider.intelligenceHeroes,
-    getNextHeroType: (context, direction) {
-      if (direction == 'next') {
-        return HeroesUniversal();
-      } else {
-        return HeroesAgility();
-      }
-    },
-  );
+  HeroesIntelligence()
+      : super(
+          heroType: HeroesIntelligence,
+          getHeroes: (provider) => provider.intelligenceHeroes,
+          getNextHeroType: (context, direction) {
+            if (direction == 'next') {
+              return HeroesUniversal();
+            } else {
+              return HeroesAgility();
+            }
+          },
+        );
 }
 
 class HeroesUniversal extends HeroesBase {
-  HeroesUniversal() : super(
-    heroType: HeroesUniversal,
-    getHeroes: (provider) => provider.universalHeroes,
-    getNextHeroType: (context, direction) {
-      if (direction == 'next') {
-        return HeroesStrength();
-      } else {
-        return HeroesIntelligence();
-      }
-    },
-  );
+  HeroesUniversal()
+      : super(
+          heroType: HeroesUniversal,
+          getHeroes: (provider) => provider.universalHeroes,
+          getNextHeroType: (context, direction) {
+            if (direction == 'next') {
+              return HeroesStrength();
+            } else {
+              return HeroesIntelligence();
+            }
+          },
+        );
 }

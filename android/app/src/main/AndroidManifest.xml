@@ -19,7 +19,19 @@
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
-              />
+            />
+            <!-- <meta-data
+              android:name="flutter.embedding.android.Vulkan"
+              android:value="false" 
+            />
+            <meta-data
+              android:name="flutter.embedding.android.OpenGL"
+              android:value="true" 
+            />
+            <meta-data
+              android:name="flutter.embedding.android.Impeller"
+              android:value="false"
+            /> -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

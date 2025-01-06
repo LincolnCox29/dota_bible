@@ -12,59 +12,95 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   void initState() {
     super.initState();
     Provider.of<DataProvider>(context, listen: false).fetchData();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        title: Row(
-          children : [
-            Padding(
-              padding: const EdgeInsets.only(right: 180),
-              child : Text(
-                widget.title,
-                style: Theme.of(context).textTheme.bodyLarge
+        appBar: AppBar(
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+            title: Row(children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 180),
+                child: Text(widget.title,
+                    style: Theme.of(context).textTheme.bodyLarge),
               ),
-            ),
-            Text(
-              Provider.of<DataProvider>(context).gameVersion,
-              style: Theme.of(context).textTheme.bodyLarge
-            )
-          ]
-        )
-      ),
-      body: Center(
-        child : Column(
+              Text(Provider.of<DataProvider>(context).gameVersion,
+                  style: Theme.of(context).textTheme.bodyLarge)
+            ])),
+        body: Center(
+            child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HeroesStrength()));
-              },
-              child : mainMenuButton('Heroes', 'assets/img/menu/heroes_button.png', context),
-            ),
-            GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SimpleItems()));
-              },
-              child : mainMenuButton('Simple Items', 'assets/img/menu/base_items.png', context),
-            ),
-            GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ComplexItems()));
-              },
-              child : mainMenuButton('Complex Items', 'assets/img/menu/items_button.png', context),
-            ),
+            MainMenuButton(
+                text: 'Heroes',
+                img: 'assets/img/menu/heroes_button.png',
+                page: HeroesStrength()),
+            MainMenuButton(
+                text: 'Simple Items',
+                img: 'assets/img/menu/base_items.png',
+                page: SimpleItems()),
+            MainMenuButton(
+                text: 'Complex Items',
+                img: 'assets/img/menu/items_button.png',
+                page: ComplexItems()),
           ],
-        )
-      )
-    );
+        )));
+  }
+}
+
+class MainMenuButton extends StatefulWidget {
+  const MainMenuButton(
+      {super.key, required this.text, required this.img, required this.page});
+  final String text;
+  final String img;
+  final Widget page;
+  @override
+  State<MainMenuButton> createState() => _MainMenuButtonState();
+}
+
+class _MainMenuButtonState extends State<MainMenuButton> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => widget.page));
+        },
+        child: Stack(children: [
+          Container(
+            decoration: BoxDecoration(
+                border: Border.all(
+                    width: 3, color: const Color.fromARGB(225, 15, 76, 117)),
+                boxShadow: [
+                  BoxShadow(
+                      color: const Color.fromARGB(225, 15, 76, 117)
+                          .withOpacity(.1),
+                      offset: const Offset(8, 8),
+                      blurRadius: 5,
+                      spreadRadius: 10),
+                ],
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                    image: AssetImage(widget.img), fit: BoxFit.fill)),
+            width: getScreenWidth(context) * 0.9,
+            height: getScreenHeight(context) * 0.15,
+          ),
+          Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 50),
+              child: Text(
+                widget.text,
+                style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 30,
+                    shadows: [
+                      BoxShadow(color: Colors.black, offset: Offset(3, 3))
+                    ]),
+              ))
+        ]));
   }
 }

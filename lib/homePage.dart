@@ -53,23 +53,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class MainMenuButton extends StatefulWidget {
+class MainMenuButton extends StatelessWidget {
   const MainMenuButton(
       {super.key, required this.text, required this.img, required this.page});
   final String text;
   final String img;
   final Widget page;
-  @override
-  State<MainMenuButton> createState() => _MainMenuButtonState();
-}
 
-class _MainMenuButtonState extends State<MainMenuButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => widget.page));
+              context, MaterialPageRoute(builder: (context) => page));
         },
         child: Stack(children: [
           Container(
@@ -85,15 +81,15 @@ class _MainMenuButtonState extends State<MainMenuButton> {
                       spreadRadius: 10),
                 ],
                 borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    image: AssetImage(widget.img), fit: BoxFit.fill)),
+                image:
+                    DecorationImage(image: AssetImage(img), fit: BoxFit.fill)),
             width: getScreenWidth(context) * 0.9,
             height: getScreenHeight(context) * 0.15,
           ),
           Padding(
               padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 50),
               child: Text(
-                widget.text,
+                text,
                 style: const TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 30,

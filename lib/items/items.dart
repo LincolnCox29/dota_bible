@@ -5,7 +5,6 @@ import 'package:dota_bible/items/itemPage.dart';
 part 'functions.dart';
 
 abstract class Items extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,10 +21,9 @@ abstract class Items extends StatelessWidget {
 }
 
 class SimpleItems extends Items {
-
   @override
   Widget child(BuildContext context) {
-    return itemListView(Provider.of<DataProvider>(context).simpleItems);
+    return ItemListView(items: Provider.of<DataProvider>(context).simpleItems);
   }
 
   @override
@@ -33,10 +31,9 @@ class SimpleItems extends Items {
 }
 
 class ComplexItems extends Items {
-  
   @override
   Widget child(BuildContext context) {
-    return itemListView(Provider.of<DataProvider>(context).complexItems);
+    return ItemListView(items: Provider.of<DataProvider>(context).complexItems);
   }
 
   @override

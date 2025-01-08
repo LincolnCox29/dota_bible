@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class DataProvider with ChangeNotifier {
-
   final String apiUrl = 'https://api.opendota.com/api/';
   final String steamCdnUrl = 'https://cdn.cloudflare.steamstatic.com';
 
@@ -21,10 +20,11 @@ class DataProvider with ChangeNotifier {
   List<dynamic> get complexItems => _complexItems;
   String get gameVersion => _gameVersion;
 
-  List<dynamic> _getHeroesListByAttribute(String attributeTag)
-    => _heroes.values.where((hero) => hero['primary_attr'] == attributeTag).toList();
+  List<dynamic> _getHeroesListByAttribute(String attributeTag) => _heroes.values
+      .where((hero) => hero['primary_attr'] == attributeTag)
+      .toList();
 
-  List<dynamic> get agilityHeroes =>  _getHeroesListByAttribute('agi');
+  List<dynamic> get agilityHeroes => _getHeroesListByAttribute('agi');
   List<dynamic> get intelligenceHeroes => _getHeroesListByAttribute('int');
   List<dynamic> get strengthHeroes => _getHeroesListByAttribute('str');
   List<dynamic> get universalHeroes => _getHeroesListByAttribute('all');
@@ -36,13 +36,14 @@ class DataProvider with ChangeNotifier {
 
     for (String ability in abilities) {
       if (_abilities.containsKey(ability) && ability != 'generic_hidden') {
-        result.addAll({ability : _abilities[ability]});
+        result.addAll({ability: _abilities[ability]});
       }
     }
     return result;
   }
 
-  Future<void> __baseFetch(String url, Function(Map<String, dynamic>) updater) async {
+  Future<void> __baseFetch(
+      String url, Function(Map<String, dynamic>) updater) async {
     final response = await http.get(Uri.parse(apiUrl + url));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -61,7 +62,8 @@ class DataProvider with ChangeNotifier {
   }
 
   Future<void> _fetchAbilitiesSortByHero() async {
-    await __baseFetch('constants/hero_abilities', (data) => _abilitiesSortByHero = data);
+    await __baseFetch(
+        'constants/hero_abilities', (data) => _abilitiesSortByHero = data);
   }
 
   Future<void> _fetchItems() async {
@@ -69,8 +71,10 @@ class DataProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       _items = json.decode(response.body);
 
-      _simpleItems = _items.values.where((item) => item['components'] == null).toList();
-      _complexItems = _items.values.where((item) => item['components'] != null).toList();
+      _simpleItems =
+          _items.values.where((item) => item['components'] == null).toList();
+      _complexItems =
+          _items.values.where((item) => item['components'] != null).toList();
 
       notifyListeners();
     } else {
@@ -78,11 +82,22 @@ class DataProvider with ChangeNotifier {
     }
   }
 
-  Future<void> _fetchGameVersion() async {
+  Future<void> _1fetchGameVersion() async {
     final response = await http.get(Uri.parse('${apiUrl}constants/patch'));
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
       _gameVersion = data.last['name'];
+      notifyListeners();
+    } else {
+      throw Exception('Failed to load game version');
+    }
+  }
+
+  Future<void> _fetchGameVersion() async {
+    final response = await http.get(Uri.parse('${apiUrl}constants/patchnotes'));
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+      _gameVersion = data.keys.last.toString().replaceFirst('_', '.');
       notifyListeners();
     } else {
       throw Exception('Failed to load game version');

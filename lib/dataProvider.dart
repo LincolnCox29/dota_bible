@@ -70,11 +70,38 @@ class DataProvider with ChangeNotifier {
     final response = await http.get(Uri.parse('${apiUrl}constants/items'));
     if (response.statusCode == 200) {
       _items = json.decode(response.body);
-
-      _simpleItems =
-          _items.values.where((item) => item['components'] == null).toList();
-      _complexItems =
-          _items.values.where((item) => item['components'] != null).toList();
+      List<String> exclusions = [
+        'Recipe',
+        'Courier',
+        'Grandmaster\'s Glaive',
+        'Aetherial Hammer',
+        'Caster Rapier',
+        'Tome of Knowledge',
+        'Pocket Roshan',
+        'Samurai Tabi',
+        'Necronomicon',
+        'Trident',
+        'Hermes Sandals',
+        'Lunar Crest',
+        'Witches Switch'
+      ];
+      _simpleItems = _items.values
+          .where((item) =>
+              !item["created"] &&
+              item['cost'] != null &&
+              item['cost'] != 0 &&
+              !exclusions
+                  .any((exclusion) => item.toString().contains(exclusion)))
+          .toList();
+      _complexItems = _items.values
+          .where((item) =>
+              item['created'] &&
+              item['cost'] != null &&
+              item['cost'] != 0 &&
+              (item['cost'] != 3850 && item['dname'] != 'Diffusal Blade') &&
+              !exclusions
+                  .any((exclusion) => item.toString().contains(exclusion)))
+          .toList();
 
       notifyListeners();
     } else {

@@ -6,6 +6,24 @@ class DataProvider with ChangeNotifier {
   final String apiUrl = 'https://api.opendota.com/api/';
   final String steamCdnUrl = 'https://cdn.cloudflare.steamstatic.com';
 
+  final List<String> __itemNameExclusions = [
+    'Recipe',
+    'Courier',
+    'Grandmaster\'s Glaive',
+    'Aetherial Hammer',
+    'Caster Rapier',
+    'Tome of Knowledge',
+    'Pocket Roshan',
+    'Samurai Tabi',
+    'Necronomicon',
+    'Trident',
+    'Hermes Sandals',
+    'Lunar Crest',
+    'Witches Switch',
+    'Medallion of Courage',
+    'Wraith Pact'
+  ];
+
   Map<String, dynamic> _heroes = {};
   Map<String, dynamic> _items = {};
   Map<String, dynamic> _abilities = {};
@@ -70,27 +88,13 @@ class DataProvider with ChangeNotifier {
     final response = await http.get(Uri.parse('${apiUrl}constants/items'));
     if (response.statusCode == 200) {
       _items = json.decode(response.body);
-      List<String> exclusions = [
-        'Recipe',
-        'Courier',
-        'Grandmaster\'s Glaive',
-        'Aetherial Hammer',
-        'Caster Rapier',
-        'Tome of Knowledge',
-        'Pocket Roshan',
-        'Samurai Tabi',
-        'Necronomicon',
-        'Trident',
-        'Hermes Sandals',
-        'Lunar Crest',
-        'Witches Switch'
-      ];
+
       _simpleItems = _items.values
           .where((item) =>
               !item["created"] &&
               item['cost'] != null &&
               item['cost'] != 0 &&
-              !exclusions
+              !__itemNameExclusions
                   .any((exclusion) => item.toString().contains(exclusion)))
           .toList();
       _complexItems = _items.values
@@ -99,7 +103,7 @@ class DataProvider with ChangeNotifier {
               item['cost'] != null &&
               item['cost'] != 0 &&
               (item['cost'] != 3850 && item['dname'] != 'Diffusal Blade') &&
-              !exclusions
+              !__itemNameExclusions
                   .any((exclusion) => item.toString().contains(exclusion)))
           .toList();
 
